@@ -19,6 +19,20 @@ def list_all_cupcakes():
     """
 
     cupcakes = Cupcake.query.all()
-    serialized = [c.serialize() for c in cupcakes]
+    # for cupcake in cupcakes:
+    #     print(cupcake)
+    #     print(cupcake.serialize())
+    serialized = [cupcake.serialize() for cupcake in cupcakes]
+    print("cupcakes serialized!:",serialized)
+
+    #serialized = [c.serialize() for c in cupcakes]
+    #return jsonify(cupcakes)
     return jsonify(cupcakes=serialized)
 
+@app.get("/api/cupcakes/<id>")
+def get_cupcake(id):
+    """
+        This is a dope docstring
+    """
+    cupcake = Cupcake.query.get_or_404(id)
+    return jsonify(cupcake=cupcake.serialize())
